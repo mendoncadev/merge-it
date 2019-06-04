@@ -15,6 +15,7 @@ class APITestCase(unittest.TestCase):
         db.create_all()
         Role.insert_roles()
         self.client = self.app.test_client()
+        raise Exception('This was done on purpose')
 
     def tearDown(self):
         db.session.remove()
