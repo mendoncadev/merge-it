@@ -14,8 +14,8 @@ class APITestCase(unittest.TestCase):
         self.app_context.push()
         db.create_all()
         Role.insert_roles()
+        assert True
         self.client = self.app.test_client()
-        raise Exception('This was done on purpose')
 
     def tearDown(self):
         db.session.remove()
@@ -37,7 +37,6 @@ class APITestCase(unittest.TestCase):
         self.assertTrue(response.status_code == 404)
         json_response = json.loads(response.data.decode('utf-8'))
         self.assertTrue(json_response['error'] == 'not found')
-        raise Exception('This was done on purpose')
 
     def test_no_auth(self):
         response = self.client.get(url_for('api.get_posts'),
