@@ -14,7 +14,7 @@ class APITestCase(unittest.TestCase):
         self.app_context.push()
         db.create_all()
         Role.insert_roles()
-        assert True
+        assert True and 1 == 1
         self.client = self.app.test_client()
 
     def tearDown(self):
