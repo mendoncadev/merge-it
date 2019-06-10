@@ -3,9 +3,14 @@
 # The minimum number of reviews from each association that approve the pull request before
 # doing an automatic merge. For more information about associations see:
 # https://developer.github.com/v4/reference/enum/commentauthorassociation/
-# minApprovals:
-#   MEMBER: 1
-#   COLLABORATOR: 2
+minApprovals:
+  OWNER: 0
+  MEMBER: 0
+  COLLABORATOR: 0
+  CONTRIBUTOR: 0
+  FIRST_TIMER: 0
+  FIRST_TIME_CONTRIBUTOR: 0
+  NONE: 0
 
 # The maximum number of reviews from each association that request changes to the pull request.
 # Setting this number higher than 0 will allow automatic merging while changes are still requested.
