@@ -56,8 +56,12 @@ jobs:
           POSTGRES_PASSWORD: ''
     steps:
       - checkout
-      - run: pip install bandit
-      - run: bandit app -n 3 -lll
+      - run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install bandit
+            bandit app -n 3 -lll
 
 
 workflows:
