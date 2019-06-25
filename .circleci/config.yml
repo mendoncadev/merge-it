@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -30,9 +30,6 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements/dev.txt
-      - run:
-          name: setup Heroku
-          command: bash .circleci/setup-heroku.sh
       - save_cache:
           key: deps2-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
           paths:
@@ -46,14 +43,33 @@ jobs:
           destination: tr1
       - store_test_results:
           path: test-reports/
-      - add_ssh_keys:
-          fingerprints:
-            - '48:a0:87:54:ca:75:32:12:c6:9e:a2:77:a4:7a:08:a4'
-      - deploy:
-          name: Deploy Master to Heroku
+  another-check:
+    docker:
+      - image: circleci/python:3.6.2-stretch-browsers
+        environment:
+          FLASK_CONFIG: testing
+          TEST_DATABASE_URL: postgresql://ubuntu@localhost/circle_test?sslmode=disable
+      - image: circleci/postgres:9.6.5-alpine-ram
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: ''
+    steps:
+      - checkout
+      - run:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git push heroku master
-              heroku run python manage.py deploy
-              heroku restart
-            fi
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install bandit
+            sleep 10m
+            bandit app -n 3 -lll
+
+
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - build
+  bandit-check:
+    jobs:
+      - another-check

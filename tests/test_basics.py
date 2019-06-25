@@ -13,6 +13,8 @@ class BasicsTestCase(unittest.TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+        from time import sleep
+        sleep(5)
         self.app_context.pop()
 
     def test_app_exists(self):
