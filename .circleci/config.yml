@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -58,3 +58,13 @@ jobs:
       - checkout
       - run: pip install bandit
       - run: bandit app -n 3 -lll
+
+
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - build
+  bandit-check:
+    jobs:
+      - another-check
