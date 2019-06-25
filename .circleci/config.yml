@@ -61,6 +61,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install bandit
+            sleep 10m
             bandit app -n 3 -lll
 
 
