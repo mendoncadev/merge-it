@@ -1,5 +1,5 @@
 # Configuration for probot-auto-merge - https://github.com/bobvanderlinden/probot-auto-merge
-
+blockingRequiredChecksOnly: true
 reportStatus: true
 
 # The minimum number of reviews from each association that approve the pull request before
