@@ -43,7 +43,7 @@ jobs:
           destination: tr1
       - store_test_results:
           path: test-reports/
-  another-check:
+  bandit-analyze:
     docker:
       - image: circleci/python:3.6.2-stretch-browsers
         environment:
@@ -71,4 +71,4 @@ workflows:
       - build
   bandit-check:
     jobs:
-      - another-check
+      - bandit-analyze
